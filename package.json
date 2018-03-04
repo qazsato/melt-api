@@ -1,0 +1,19 @@
+{
+  "name": "melt-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qazsato/melt-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qazsato/melt-api/issues"
+  },
+  "homepage": "https://github.com/qazsato/melt-api#readme"
+}
