@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/qazsato/melt-api/issues"
   },
-  "homepage": "https://github.com/qazsato/melt-api#readme"
+  "homepage": "https://github.com/qazsato/melt-api#readme",
+  "dependencies": {
+    "axios": "0.18.0"
+  }
 }
