@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "sls deploy"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/qazsato/melt-api#readme",
   "dependencies": {
     "axios": "0.18.0"
+  },
+  "devDependencies": {
+    "serverless": "1.26.1"
   }
 }
