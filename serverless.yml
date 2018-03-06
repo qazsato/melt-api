@@ -8,4 +8,11 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.getWebTitle
+    description: Webサイトのタイトルを取得する
+    timeout: 30
+    events:
+      - http:
+          path: web/title
+          method: get
+          cors: true
