@@ -7,7 +7,7 @@ provider:
   region: ap-northeast-1
 
 functions:
-  hello:
+  get_web_title:
     handler: handler.getWebTitle
     description: Webサイトのタイトルを取得する
     timeout: 30
