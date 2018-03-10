@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/qazsato/melt-api#readme",
   "dependencies": {
+    "aws-sdk": "2.207.0",
     "axios": "0.18.0"
   },
   "devDependencies": {
