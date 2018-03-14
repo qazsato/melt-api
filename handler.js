@@ -13,3 +13,12 @@ module.exports.getWebTitle = (event, context, callback) => {
     callback(null, response);
   });
 };
+
+module.exports.postNote = (event, context, callback) => {
+  const data = JSON.parse(event.body);
+  const response = {
+    statusCode: 200,
+    body: data.content
+  };
+  callback(null, response);
+};

@@ -16,3 +16,12 @@ functions:
           path: web/title
           method: get
           cors: true
+  post_note:
+    handler: handler.postNote
+    description: マークダウンデータをHTMLファイルで保存する
+    timeout: 30
+    events:
+      - http:
+          path: note
+          method: post
+          cors: true
