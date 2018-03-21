@@ -10,6 +10,13 @@
       "name": "get_web_title",
       "program": "${workspaceFolder}/node_modules/.bin/sls",
       "args": ["invoke", "local", "-f", "get_web_title", "--data", "{}"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "post_note",
+      "program": "${workspaceFolder}/node_modules/.bin/sls",
+      "args": ["invoke", "local", "-f", "post_note", "--data", "{}"]
     }
   ]
 }
