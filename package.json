@@ -17,10 +17,11 @@
   },
   "homepage": "https://github.com/qazsato/melt-api#readme",
   "dependencies": {
-    "aws-sdk": "2.207.0",
+    "aws-sdk": "2.213.1",
     "axios": "0.18.0",
     "highlight.js": "9.12.0",
-    "marked": "0.3.17",
+    "iconv": "2.3.0",
+    "marked": "0.3.18",
     "node-emoji": "1.8.1"
   },
   "devDependencies": {
