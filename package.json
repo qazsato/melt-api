@@ -20,7 +20,6 @@
     "aws-sdk": "2.213.1",
     "axios": "0.18.0",
     "highlight.js": "9.12.0",
-    "iconv": "2.3.0",
     "marked": "0.3.18",
     "node-emoji": "1.8.1"
   },
