@@ -1,23 +1,20 @@
 {
   "name": "melt-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "handler.js",
   "scripts": {
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
-    "deploy:prod": "sls deploy --stage prod"
+    "deploy:prod": "sls deploy --stage prod",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qazsato/melt-api.git"
+  "lint-staged": {
+    "*.js": "eslint"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qazsato/melt-api/issues"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "homepage": "https://github.com/qazsato/melt-api#readme",
   "dependencies": {
     "aws-sdk": "2.973.0",
     "axios": "0.21.1",
@@ -28,8 +25,17 @@
     "node-emoji": "1.11.0"
   },
   "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.24.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.0",
+    "husky": "7.0.1",
+    "lint-staged": "11.1.2",
     "serverless": "2.55.0",
     "serverless-domain-manager": "5.1.5",
     "serverless-offline": "8.0.0"
-  }
+  },
+  "author": "qazsato",
+  "license": "MIT"
 }

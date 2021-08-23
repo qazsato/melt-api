@@ -1,15 +1,15 @@
-'use strict';
+'use strict'
 
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
-const marked = require('marked');
-const emoji = require('node-emoji');
-const highlight = require('highlight.js');
+const AWS = require('aws-sdk')
+const s3 = new AWS.S3()
+const marked = require('marked')
+const emoji = require('node-emoji')
+const highlight = require('highlight.js')
 
 module.exports.postNote = (event, context, callback) => {
-  const data = JSON.parse(event.body);
-  const content = data.content;
-  const file = /.+\/(.+)\.json/.exec(data.path)[1];
+  const data = JSON.parse(event.body)
+  const content = data.content
+  const file = /.+\/(.+)\.json/.exec(data.path)[1]
   s3.putObject({
     Bucket: 'melt-storage',
     Key: `note/${file}.html`,
@@ -17,29 +17,29 @@ module.exports.postNote = (event, context, callback) => {
     ContentType: 'text/html'
   }, function (err, data) {
     if (err) {
-      callback(err);
+      callback(err)
     } else {
       const response = {
         statusCode: 200,
         body: JSON.stringify({
           url: `https://s3-ap-northeast-1.amazonaws.com/melt-storage/note/${file}.html`
         })
-      };
-      callback(null, response);
+      }
+      callback(null, response)
     }
-  });
-};
+  })
+}
 
-function generateNote(content) {
+function generateNote (content) {
   marked.setOptions({
     renderer: createRenderer(),
     highlight: (code, lang) => {
       if (lang) {
-        return highlight.highlightAuto(code, [lang]).value;
+        return highlight.highlightAuto(code, [lang]).value
       }
-      return code;
+      return code
     }
-  });
+  })
   return `
     <!DOCTYPE html>
     <html lang="ja">
@@ -69,36 +69,36 @@ function generateNote(content) {
       </article>
     </body>
     </html>
-  `;
+  `
 }
 
-function createRenderer() {
-  const renderer = new marked.Renderer();
+function createRenderer () {
+  const renderer = new marked.Renderer()
   renderer.list = (body, ordered) => {
     // GFMのCheckbox記法に対応するため拡張
-    let html;
+    let html
     if (ordered === true) {
-      html = `<ol>${body}</ol>`;
+      html = `<ol>${body}</ol>`
     } else if (body.includes('type="checkbox"')) {
       html = `<ul class="check-list">${body}</ul>`
     } else {
-      html = `<ul>${body}</ul>`;
+      html = `<ul>${body}</ul>`
     }
-    return html;
-  };
+    return html
+  }
   renderer.listitem = (text) => {
     // GFMのCheckbox記法に対応するため拡張
-    text = text.replace(/\[x\]/gi, '<input type="checkbox" disabled checked>');
-    text = text.replace(/\[ \]/gi, '<input type="checkbox" disabled>');
-    return `<li>${text}</li>`;
-  };
+    text = text.replace(/\[x\]/gi, '<input type="checkbox" disabled checked>')
+    text = text.replace(/\[ \]/gi, '<input type="checkbox" disabled>')
+    return `<li>${text}</li>`
+  }
   renderer.text = (html) => {
     // 絵文字に対応するため拡張
-    return emoji.emojify(html);
-  };
+    return emoji.emojify(html)
+  }
   renderer.link = (href, title, text) => {
     // 新規タブでブラウザ起動するため拡張
     return `<a target="_blank" href="${href}" title="${title}">${text}</a>`
-  };
-  return renderer;
+  }
+  return renderer
 }
