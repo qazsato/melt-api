@@ -6,7 +6,7 @@ const marked = require('marked')
 const emoji = require('node-emoji')
 const highlight = require('highlight.js')
 
-module.exports.postNote = (event, context, callback) => {
+module.exports.execute = (event, context, callback) => {
   const data = JSON.parse(event.body)
   const content = data.content
   const file = /.+\/(.+)\.json/.exec(data.path)[1]

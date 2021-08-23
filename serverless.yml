@@ -35,12 +35,4 @@ custom:
 
 functions:
   get_notes_metadata: ${file(./functions/get_notes_metadata/function.yml)}
-  post_note:
-    handler: handler.postNote
-    description: マークダウンデータをHTMLファイルで保存する
-    timeout: 30
-    events:
-      - http:
-          path: note
-          method: post
-          cors: true
+  post_notes: ${file(./functions/post_notes/function.yml)}
