@@ -18,18 +18,23 @@ provider:
       Resource: "arn:aws:s3:::melt-storage/*"
 
 plugins:
+  - serverless-offline
   - serverless-domain-manager
 
+custom:
+  defaultStage: dev
+  environment:
+    local: ${file(./config/local.yml)}
+    dev: ${file(./config/development.yml)}
+    prod: ${file(./config/production.yml)}
+  customDomain:
+    domainName: ${self:custom.environment.${self:provider.stage}.domain}
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
 functions:
-  get_web_title:
-    handler: handler.getWebTitle
-    description: Webサイトのタイトルを取得する
-    timeout: 30
-    events:
-      - http:
-          path: web/title
-          method: get
-          cors: true
+  get_notes_metadata: ${file(./functions/get_notes_metadata/function.yml)}
   post_note:
     handler: handler.postNote
     description: マークダウンデータをHTMLファイルで保存する
@@ -39,14 +44,3 @@ functions:
           path: note
           method: post
           cors: true
-
-custom:
-  defaultStage: dev
-  environment:
-    dev: ${file(./config/development.yml)}
-    prod: ${file(./config/production.yml)}
-  customDomain:
-    domainName: ${self:custom.environment.${self:provider.stage}.domain}
-    basePath: ''
-    stage: ${self:provider.stage}
-    createRoute53Record: true

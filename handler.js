@@ -2,33 +2,9 @@
 
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
-const axios = require('axios');
 const marked = require('marked');
 const emoji = require('node-emoji');
 const highlight = require('highlight.js');
-const chardet = require('chardet')
-const iconv = require('iconv-lite')
-
-module.exports.getWebTitle = (event, context, callback) => {
-  const url = decodeURIComponent(event.queryStringParameters.url);
-  axios.get(url, {
-    responseType: 'arraybuffer',
-    transformResponse: data => {
-      const encoding = chardet.detect(data);
-      if (!encoding) {
-        throw new Error('chardet failed to detect encoding');
-      }
-      return iconv.decode(data, encoding);
-    }
-  }).then((e) => {
-    const title = /<title>(.+)<\/title>/.exec(e.data)[1];
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify({title}),
-    };
-    callback(null, response);
-  });
-};
 
 module.exports.postNote = (event, context, callback) => {
   const data = JSON.parse(event.body);
