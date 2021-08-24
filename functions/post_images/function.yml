@@ -1,0 +1,7 @@
+handler: functions/post_images/handler.execute
+description: 画像をアップロードする
+events:
+  - http:
+      path: images
+      method: post
+      cors: true
