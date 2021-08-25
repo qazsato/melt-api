@@ -24,7 +24,7 @@ module.exports.execute = (event, context, callback) => {
       const response = {
         statusCode: 200,
         body: JSON.stringify({
-          alt: body.key,
+          name: body.key,
           url: url
         })
       }
