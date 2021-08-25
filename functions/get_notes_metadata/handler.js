@@ -16,7 +16,8 @@ module.exports.execute = (event, context, callback) => {
       return iconv.decode(data, encoding)
     }
   }).then((res) => {
-    const title = /<title>(.+)<\/title>/.exec(res.data)[1]
+    const result = /<title>(.+)<\/title>/.exec(res.data)
+    const title = result ? result[1] : ''
     const response = {
       statusCode: 200,
       body: JSON.stringify({ title })
