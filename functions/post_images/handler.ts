@@ -1,10 +1,10 @@
-'use strict'
-
-const AWS = require('aws-sdk')
+import { APIGatewayProxyHandler } from 'aws-lambda'
+import 'source-map-support/register'
+import * as AWS from 'aws-sdk'
 const s3 = new AWS.S3()
-const crypto = require('crypto')
+import * as crypto from 'crypto'
 
-module.exports.execute = (event, context, callback) => {
+export const execute: APIGatewayProxyHandler = (event, context, callback) => {
   const body = JSON.parse(event.body)
   const hash = crypto.createHash('md5').update(body.attachment)
   // 先頭の ~;base64, まではファイルデータとして不要なので空文字で置換する

@@ -1,12 +1,12 @@
-'use strict'
-
-const AWS = require('aws-sdk')
+import { APIGatewayProxyHandler } from 'aws-lambda'
+import 'source-map-support/register'
+import * as AWS from 'aws-sdk'
 const s3 = new AWS.S3()
-const marked = require('marked')
-const emoji = require('node-emoji')
-const highlight = require('highlight.js')
+import marked from 'marked'
+import emoji from 'node-emoji'
+import highlight from 'highlight.js'
 
-module.exports.execute = (event, context, callback) => {
+export const execute: APIGatewayProxyHandler = (event, context, callback) => {
   const data = JSON.parse(event.body)
   const content = data.content
   const file = /.+\/(.+)\.json/.exec(data.path)[1]

@@ -1,10 +1,10 @@
-'use strict'
+import { APIGatewayProxyHandler } from 'aws-lambda'
+import 'source-map-support/register'
+import axios from 'axios'
+import * as chardet from 'chardet'
+import * as iconv from 'iconv-lite'
 
-const axios = require('axios')
-const chardet = require('chardet')
-const iconv = require('iconv-lite')
-
-module.exports.execute = (event, context, callback) => {
+export const execute: APIGatewayProxyHandler = (event, context, callback) => {
   const url = decodeURIComponent(event.queryStringParameters.url)
   axios.get(url, {
     responseType: 'arraybuffer',
