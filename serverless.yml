@@ -20,6 +20,7 @@ provider:
 plugins:
   - serverless-domain-manager
   - serverless-offline
+  - serverless-webpack
 
 custom:
   defaultStage: dev
@@ -32,6 +33,9 @@ custom:
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
 
 functions:
   get_notes_metadata: ${file(./functions/get_notes_metadata/function.yml)}
