@@ -1,6 +1,7 @@
 # Melt API
 
 [Melt](https://github.com/qazsato/melt) で利用するための REST API 。
+
 API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Node.js。
 
 ## ディレクトリ構成
