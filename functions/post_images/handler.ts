@@ -24,6 +24,10 @@ export const execute: APIGatewayProxyHandler = (event, context, callback) => {
     } else {
       const response = {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
         body: JSON.stringify({
           name: body.key,
           url: url

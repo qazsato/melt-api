@@ -21,6 +21,10 @@ export const execute: APIGatewayProxyHandler = (event, context, callback) => {
     } else {
       const response = {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
         body: JSON.stringify({
           url: `https://s3-ap-northeast-1.amazonaws.com/melt-storage/note/${file}.html`
         })
