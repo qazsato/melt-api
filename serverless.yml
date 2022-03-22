@@ -40,4 +40,3 @@ custom:
 functions:
   get_notes_metadata: ${file(./functions/get_notes_metadata/function.yml)}
   post_images: ${file(./functions/post_images/function.yml)}
-  post_notes: ${file(./functions/post_notes/function.yml)}

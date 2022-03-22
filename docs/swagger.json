@@ -1,0 +1,145 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Melt API",
+    "version": "1.2.0",
+    "description": "Melt で利用するための REST API"
+  },
+  "servers": [
+    {
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/images": {
+      "post": {
+        "summary": "",
+        "operationId": "post-images",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "File Name"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "画像のURL"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "url"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "画像をS3にアップロードする",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "File Name"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Content Type"
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "description": "FileReader Result"
+                  }
+                },
+                "required": [
+                  "key",
+                  "type",
+                  "attachment"
+                ]
+              },
+              "examples": {
+                "example": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/sites/metadata": {
+      "get": {
+        "summary": "",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Webサイトのタイトル"
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-sites-metadata",
+        "description": "Webサイトのメタデータを取得する",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "description": "WebサイトのURL"
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "api_key": {
+        "name": "api_key",
+        "type": "apiKey",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "API Key": []
+    }
+  ]
+}
