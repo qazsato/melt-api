@@ -5,6 +5,7 @@
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
     "deploy:prod": "sls deploy --stage prod",
+    "docs": "redoc-cli bundle docs/swagger.json",
     "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "lint-staged": {
@@ -35,6 +36,7 @@
     "fork-ts-checker-webpack-plugin": "3.0.1",
     "husky": "7.0.1",
     "lint-staged": "11.1.2",
+    "redoc-cli": "0.13.9",
     "serverless": "2.55.0",
     "serverless-domain-manager": "5.1.5",
     "serverless-offline": "8.0.0",
