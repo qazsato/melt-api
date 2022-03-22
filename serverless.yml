@@ -40,3 +40,9 @@ custom:
 functions:
   get_sites_metadata: ${file(./functions/get_sites_metadata/function.yml)}
   post_images: ${file(./functions/post_images/function.yml)}
+  hello:
+    handler: bin/hello
+    events:
+      - http:
+          path: hello
+          method: get
