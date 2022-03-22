@@ -38,5 +38,5 @@ custom:
     includeModules: true
 
 functions:
-  get_notes_metadata: ${file(./functions/get_notes_metadata/function.yml)}
+  get_sites_metadata: ${file(./functions/get_sites_metadata/function.yml)}
   post_images: ${file(./functions/post_images/function.yml)}

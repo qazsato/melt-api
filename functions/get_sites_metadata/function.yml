@@ -1,4 +1,4 @@
-handler: functions/get_notes_metadata/handler.execute
+handler: functions/get_sites_metadata/handler.execute
 description: Webサイトのメタデータを取得する
 events:
   - http:
