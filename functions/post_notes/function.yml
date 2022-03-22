@@ -1,8 +1,0 @@
-handler: functions/post_notes/handler.execute
-description: マークダウンデータをHTMLファイルで保存する
-timeout: 30
-events:
-  - http:
-      path: notes
-      method: post
-      cors: true
