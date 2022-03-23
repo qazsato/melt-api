@@ -2,7 +2,7 @@ service: melt-api
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: go1.x
   stage: ${opt:stage, self:custom.defaultStage}
   region: ap-northeast-1
   logRetentionInDays: 30
@@ -20,7 +20,7 @@ provider:
 plugins:
   - serverless-domain-manager
   - serverless-offline
-  - serverless-webpack
+  # - serverless-webpack
 
 custom:
   defaultStage: dev
@@ -33,13 +33,19 @@ custom:
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true
+  # webpack:
+  #   webpackConfig: ./webpack.config.js
+  #   includeModules: true
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
 
 functions:
-  get_sites_metadata: ${file(./functions/get_sites_metadata/function.yml)}
-  post_images: ${file(./functions/post_images/function.yml)}
+  # get_sites_metadata: ${file(./functions/get_sites_metadata/function.yml)}
+  # post_images: ${file(./functions/post_images/function.yml)}
   hello:
     handler: bin/hello
     events:
