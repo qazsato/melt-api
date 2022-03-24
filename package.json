@@ -5,7 +5,7 @@
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
     "deploy:prod": "sls deploy --stage prod",
-    "docs": "redoc-cli bundle docs/swagger.json"
+    "docs": "redoc-cli bundle docs/swagger.json -o docs/redoc-static.html"
   },
   "devDependencies": {
     "redoc-cli": "0.13.9",

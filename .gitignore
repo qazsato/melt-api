@@ -24,4 +24,4 @@ vendor
 node_modules
 
 # API document
-redoc-static.html
+docs/redoc-static.html
