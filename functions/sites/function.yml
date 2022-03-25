@@ -3,6 +3,6 @@ handler: bin/sites
 description: Webサイトのメタデータを取得する
 events:
   - http:
-      path: sites/metadata
+      path: sites/meta
       method: get
       cors: true

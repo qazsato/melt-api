@@ -79,7 +79,7 @@
         ]
       }
     },
-    "/sites/metadata": {
+    "/sites/meta": {
       "get": {
         "summary": "",
         "tags": [],
