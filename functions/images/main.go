@@ -93,6 +93,11 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	return events.APIGatewayProxyResponse{
 		Body:       "{\"name\": \"" + image.Key + "\", \"url\": \"" + url + "\"}",
 		StatusCode: 200,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin":      "*",
+			"Access-Control-Allow-Credentials": "true",
+			"Content-Type":                     "application/json",
+		},
 	}, nil
 }
 
