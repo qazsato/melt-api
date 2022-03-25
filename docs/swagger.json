@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Melt API",
-    "version": "1.2.0",
+    "version": "2.0.0",
     "description": "Melt で利用するための REST API"
   },
   "servers": [
