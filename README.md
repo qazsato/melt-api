@@ -15,7 +15,7 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go
 ├── functions # Lambda関数
 │   ├── images
 │   │   ├── function.yml # serverless.ymlの分割ファイル
-│   │   └── maing.go # Lambda関数の実行ファイル
+│   │   └── main.go # Lambda関数の実行ファイル
 │   └── ...
 ├── go.mod
 ├── package.json
