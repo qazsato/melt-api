@@ -1,2 +1,5 @@
 stage: local
 domain: localhost:3000
+aws:
+  s3:
+    bucketname: local-melt-storage

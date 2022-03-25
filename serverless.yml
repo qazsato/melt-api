@@ -19,6 +19,7 @@ provider:
 
 plugins:
   - serverless-domain-manager
+  - serverless-s3-local
   - serverless-offline
 
 custom:

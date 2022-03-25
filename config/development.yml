@@ -1,2 +1,5 @@
 stage: dev
-domain: api.melt.qazsato.com
+domain: dev.api.melt.qazsato.com
+aws:
+  s3:
+    bucketname: dev-melt-storage
