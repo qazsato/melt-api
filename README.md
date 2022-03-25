@@ -2,7 +2,7 @@
 
 [Melt](https://github.com/qazsato/melt) で利用するための REST API 。
 
-API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Node.js。
+API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go。
 
 ## ディレクトリ構成
 
@@ -13,12 +13,12 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは No
 │   ├── development.yml
 │   └── production.yml
 ├── functions # Lambda関数
-│   ├── post_images
+│   ├── images
 │   │   ├── function.yml # serverless.ymlの分割ファイル
-│   │   └── handler.js # Lambda関数の実行ファイル
+│   │   └── maing.go # Lambda関数の実行ファイル
 │   └── ...
+├── go.mod
 ├── package.json
-├── package-lock.json
 └── serverless.yml
 ```
 

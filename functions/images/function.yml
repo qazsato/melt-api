@@ -1,4 +1,4 @@
-handler: functions/post_images/handler.execute
+handler: functions/images/main.go
 description: 画像をアップロードする
 events:
   - http:

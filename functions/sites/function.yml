@@ -1,4 +1,4 @@
-handler: functions/get_sites_metadata/handler.execute
+handler: functions/sites/main.go
 description: Webサイトのメタデータを取得する
 events:
   - http:

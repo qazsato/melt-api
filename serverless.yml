@@ -20,7 +20,6 @@ provider:
 plugins:
   - serverless-domain-manager
   - serverless-offline
-  # - serverless-webpack
 
 custom:
   defaultStage: dev
@@ -33,9 +32,6 @@ custom:
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
-  # webpack:
-  #   webpackConfig: ./webpack.config.js
-  #   includeModules: true
 
 package:
   exclude:
@@ -44,11 +40,5 @@ package:
     - ./bin/**
 
 functions:
-  # get_sites_metadata: ${file(./functions/get_sites_metadata/function.yml)}
-  # post_images: ${file(./functions/post_images/function.yml)}
-  hello:
-    handler: hello/main.go
-    events:
-      - http:
-          path: hello
-          method: get
+  sites: ${file(./functions/sites/function.yml)}
+  images: ${file(./functions/images/function.yml)}

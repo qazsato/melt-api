@@ -9,7 +9,7 @@ import (
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	return events.APIGatewayProxyResponse{
-		Body:       "{\"message\": \"Hello Go 1.x!\"}",
+		Body:       "{\"message\": \"GET /sites/metadata\"}",
 		StatusCode: 200,
 	}, nil
 }
