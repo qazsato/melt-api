@@ -1,4 +1,5 @@
-handler: functions/images/main.go
+# handler: functions/images/main.go
+handler: bin/images
 description: 画像をアップロードする
 events:
   - http:

@@ -1,4 +1,5 @@
-handler: functions/sites/main.go
+# handler: functions/sites/main.go
+handler: bin/sites
 description: Webサイトのメタデータを取得する
 events:
   - http:
