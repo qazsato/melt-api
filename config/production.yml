@@ -1,2 +1,5 @@
 stage: prod
 domain: api.melt.qazsato.com
+aws:
+  s3:
+    bucketname: melt-storage

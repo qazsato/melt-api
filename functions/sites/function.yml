@@ -1,4 +1,5 @@
-handler: functions/get_notes_metadata/handler.execute
+# handler: functions/sites/main.go
+handler: bin/sites
 description: Webサイトのメタデータを取得する
 events:
   - http:
