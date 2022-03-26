@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"os"
 	"regexp"
 	"strings"
 
@@ -68,7 +69,7 @@ type Image struct {
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	bucket := "melt-storage" // TODO: configから参照するようにする
+	bucket := os.Getenv("S3_BUCKET_NAME")
 
 	var image Image
 	if err := json.Unmarshal([]byte(req.Body), &image); err != nil {

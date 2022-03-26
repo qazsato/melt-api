@@ -5,4 +5,4 @@ handler:
   images: functions/images/main.go
 aws:
   s3:
-    bucketname: local-melt-storage
+    bucket_name: melt-storage

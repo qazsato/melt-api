@@ -5,4 +5,4 @@ handler:
   images: bin/images
 aws:
   s3:
-    bucketname: melt-storage
+    bucket_name: melt-storage
