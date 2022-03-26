@@ -1,5 +1,4 @@
-# handler: functions/images/main.go
-handler: bin/images
+handler: ${self:custom.environment.${self:provider.stage}.handler.images}
 description: 画像をアップロードする
 events:
   - http:
