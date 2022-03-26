@@ -15,7 +15,7 @@ jobs:
       with:
         node-version: '14.15.5'
     - run: npm install
-    - run: npm run deploy:prod
+    - run: make deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
