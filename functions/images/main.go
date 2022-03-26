@@ -15,6 +15,35 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+func GetSuccessResponse(body string) events.APIGatewayProxyResponse {
+	return events.APIGatewayProxyResponse{
+		Body:       body,
+		StatusCode: 200,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin":      "*",
+			"Access-Control-Allow-Credentials": "true",
+			"Content-Type":                     "application/json",
+		},
+	}
+}
+
+func GetErrorResponse(code int, message string) events.APIGatewayProxyResponse {
+	type Error struct {
+		Message string `json:"message"`
+	}
+
+	type Body struct {
+		Error Error `json:"error"`
+	}
+
+	error := Error{message}
+	bytes, _ := json.Marshal(Body{error})
+	return events.APIGatewayProxyResponse{
+		Body:       string(bytes),
+		StatusCode: code,
+	}
+}
+
 type S3PutObjectAPI interface {
 	PutObject(ctx context.Context,
 		params *s3.PutObjectInput,
@@ -43,30 +72,20 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 
 	var image Image
 	if err := json.Unmarshal([]byte(req.Body), &image); err != nil {
-		return events.APIGatewayProxyResponse{
-			Body:       "Request Body parse error",
-			StatusCode: 400,
-		}, nil
+		return GetErrorResponse(400, "key, type, attachment are required"), nil
 	}
 
 	// 先頭の ~;base64, まではファイルデータとして不要なので空文字で置換する
 	r := regexp.MustCompile("^data:\\w+\\/\\w+;base64,")
 	fileData := r.ReplaceAllString(image.Attachment, "")
-
 	dec, err := base64.StdEncoding.DecodeString(fileData)
 	if err != nil {
-		return events.APIGatewayProxyResponse{
-			Body:       "Decode error",
-			StatusCode: 400,
-		}, nil
+		return GetErrorResponse(500, "Internal Server Error"), nil
 	}
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
-		return events.APIGatewayProxyResponse{
-			Body:       "Configuration error",
-			StatusCode: 500,
-		}, nil
+		return GetErrorResponse(500, "Internal Server Error"), nil
 	}
 
 	client := s3.NewFromConfig(cfg)
@@ -83,22 +102,20 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 
 	_, err = PutFile(context.TODO(), client, input)
 	if err != nil {
-		return events.APIGatewayProxyResponse{
-			Body:       "Got error uploading file",
-			StatusCode: 400,
-		}, nil
+		return GetErrorResponse(500, "Internal Server Error"), nil
 	}
 
 	url := "https://s3-ap-northeast-1.amazonaws.com/" + bucket + "/" + key
-	return events.APIGatewayProxyResponse{
-		Body:       "{\"name\": \"" + image.Key + "\", \"url\": \"" + url + "\"}",
-		StatusCode: 200,
-		Headers: map[string]string{
-			"Access-Control-Allow-Origin":      "*",
-			"Access-Control-Allow-Credentials": "true",
-			"Content-Type":                     "application/json",
-		},
-	}, nil
+	body := map[string]string{
+		"name": image.Key,
+		"url":  url,
+	}
+	bytes, err := json.Marshal(body)
+	if err != nil {
+		return GetErrorResponse(500, "Internal Server Error"), nil
+	}
+
+	return GetSuccessResponse(string(bytes)), nil
 }
 
 func main() {
