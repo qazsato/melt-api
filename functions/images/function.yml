@@ -1,8 +1,9 @@
-# handler: functions/images/main.go
-handler: bin/images
+handler: ${self:custom.environment.${self:provider.stage}.handler.images}
 description: 画像をアップロードする
 events:
   - http:
       path: images
       method: post
       cors: true
+environment:
+  S3_BUCKET_NAME: ${self:custom.environment.${self:provider.stage}.aws.s3.bucket_name}

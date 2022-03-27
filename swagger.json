@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Melt API",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Melt で利用するための REST API"
   },
   "servers": [
@@ -79,7 +79,7 @@
         ]
       }
     },
-    "/sites/metadata": {
+    "/sites/meta": {
       "get": {
         "summary": "",
         "tags": [],
@@ -104,7 +104,7 @@
             }
           }
         },
-        "operationId": "get-sites-metadata",
+        "operationId": "get-sites-meta",
         "description": "Webサイトのメタデータを取得する",
         "parameters": [
           {
@@ -124,6 +124,95 @@
         ]
       },
       "parameters": []
+    },
+    "/notes": {
+      "get": {
+        "summary": "",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-notes",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "deprecated": true,
+        "description": ""
+      },
+      "post": {
+        "summary": "",
+        "operationId": "post-notes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "",
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "deprecated": true
+      },
+      "parameters": []
+    },
+    "/notes/{note_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "note_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-notes-note_id",
+        "deprecated": true
+      },
+      "put": {
+        "summary": "",
+        "operationId": "put-notes-note_id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      },
+      "delete": {
+        "summary": "",
+        "operationId": "delete-notes-note_id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
     }
   },
   "components": {

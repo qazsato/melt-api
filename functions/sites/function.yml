@@ -1,8 +1,7 @@
-# handler: functions/sites/main.go
-handler: bin/sites
+handler: ${self:custom.environment.${self:provider.stage}.handler.sites}
 description: Webサイトのメタデータを取得する
 events:
   - http:
-      path: sites/metadata
+      path: sites/meta
       method: get
       cors: true

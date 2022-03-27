@@ -25,10 +25,10 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go
 ## セットアップ
 
 ```
-npm install
+make init
 ```
 
 ローカル起動
 ```
-npm run offline
+make serve
 ```

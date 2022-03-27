@@ -1,5 +1,8 @@
 stage: dev
 domain: dev.api.melt.qazsato.com
+handler:
+  sites: bin/sites
+  images: bin/images
 aws:
   s3:
-    bucketname: dev-melt-storage
+    bucket_name: melt-storage
