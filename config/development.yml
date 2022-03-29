@@ -6,3 +6,6 @@ handler:
 aws:
   s3:
     bucket_name: melt-storage
+  dynamodb:
+    api_keys:
+      table_name: melt_api_keys

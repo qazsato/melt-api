@@ -41,6 +41,18 @@ type Image struct {
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	apiKey := req.QueryStringParameters["api_key"]
+	if apiKey == "" {
+		return utils.GetErrorResponse(401, "api_key is required"), nil
+	}
+	ok, err := utils.IsExistKey(apiKey)
+	if err != nil {
+		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+	}
+	if *ok == false {
+		return utils.GetErrorResponse(401, "Unauthorized"), nil
+	}
+
 	bucket := os.Getenv("S3_BUCKET_NAME")
 
 	var image Image
