@@ -43,21 +43,21 @@ type Image struct {
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	apiKey := req.QueryStringParameters["api_key"]
 	if apiKey == "" {
-		return utils.GetErrorResponse(401, "api_key is required"), nil
+		return utils.GetErrorResponse(401, "api_key is required", nil), nil
 	}
 	ok, err := utils.IsExistKey(apiKey)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 	if *ok == false {
-		return utils.GetErrorResponse(401, "Unauthorized"), nil
+		return utils.GetErrorResponse(401, "Unauthorized", nil), nil
 	}
 
 	bucket := os.Getenv("S3_BUCKET_NAME")
 
 	var image Image
 	if err := json.Unmarshal([]byte(req.Body), &image); err != nil {
-		return utils.GetErrorResponse(400, "key, type, attachment are required"), nil
+		return utils.GetErrorResponse(400, "key, type, attachment are required", err), nil
 	}
 
 	// 先頭の ~;base64, まではファイルデータとして不要なので空文字で置換する
@@ -65,12 +65,12 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	fileData := r.ReplaceAllString(image.Attachment, "")
 	dec, err := base64.StdEncoding.DecodeString(fileData)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	client := s3.NewFromConfig(cfg)
@@ -87,7 +87,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 
 	_, err = PutFile(context.TODO(), client, input)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	url := "https://s3-ap-northeast-1.amazonaws.com/" + bucket + "/" + key
@@ -97,7 +97,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	}
 	bytes, err := json.Marshal(body)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	return utils.GetSuccessResponse(string(bytes)), nil
