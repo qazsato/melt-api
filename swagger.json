@@ -64,7 +64,8 @@
                 },
                 "required": [
                   "key",
-                  "attachment"
+                  "attachment",
+                  "type"
                 ]
               },
               "examples": {}
