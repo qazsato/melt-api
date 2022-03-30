@@ -4,6 +4,10 @@
 
 API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go。
 
+## ドキュメント
+
+[API 仕様書](https://qazsato.github.io/melt-api)
+
 ## ディレクトリ構成
 
 ```
@@ -18,6 +22,7 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go
 │   │   └── main.go # Lambda関数の実行ファイル
 │   └── ...
 ├── go.mod
+├── Makefile
 ├── package.json
 └── serverless.yml
 ```

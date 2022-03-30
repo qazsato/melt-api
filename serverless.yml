@@ -10,12 +10,16 @@ provider:
   versionFunctions: false
   lambdaHashingVersion: 20201221
   environment:
-    NODE_ENV: ${self:provider.stage}
+    KEY_TABLE_NAME: ${self:custom.environment.${self:provider.stage}.aws.dynamodb.api_keys.table_name}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - s3:*
       Resource: "arn:aws:s3:::melt-storage/*"
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:ap-northeast-1:*:*"
 
 plugins:
   - serverless-domain-manager

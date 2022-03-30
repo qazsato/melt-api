@@ -23,21 +23,33 @@ func GetTitle(html string) string {
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	apiKey := req.QueryStringParameters["api_key"]
+	if apiKey == "" {
+		return utils.GetErrorResponse(401, "api_key is required", nil), nil
+	}
+	ok, err := utils.IsExistKey(apiKey)
+	if err != nil {
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
+	}
+	if *ok == false {
+		return utils.GetErrorResponse(401, "Unauthorized", nil), nil
+	}
+
 	url := req.QueryStringParameters["url"]
 
 	if url == "" {
-		return utils.GetErrorResponse(400, "url is required"), nil
+		return utils.GetErrorResponse(400, "url is required", nil), nil
 	}
 
 	httpRes, err := http.Get(url)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	defer httpRes.Body.Close()
 	byteArray, err := ioutil.ReadAll(httpRes.Body)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	body := map[string]string{
@@ -45,7 +57,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	}
 	bytes, err := json.Marshal(body)
 	if err != nil {
-		return utils.GetErrorResponse(500, "Internal Server Error"), nil
+		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	return utils.GetSuccessResponse(string(bytes)), nil
