@@ -1,0 +1,403 @@
+openapi: 3.1.0
+info:
+  title: Melt API
+  version: 2.1.0
+  description: マークダウンエディタ Melt で利用する REST API
+  x-logo:
+    url: 'https://qazsato.github.io/melt-api/logo.png'
+  contact: {}
+servers:
+  - description: ''
+    url: 'https://api.melt.qazsato.com'
+paths:
+  /apps/meta:
+    get:
+      summary: Get Melt metadata
+      tags:
+        - apps
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: アプリバージョン
+                required:
+                  - version
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-apps-meta
+      description: Melt のメタデータを取得する
+      security:
+        - api_key: []
+      deprecated: true
+  /images:
+    post:
+      summary: Upload image
+      operationId: post-images
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: ファイル名
+                  url:
+                    type: string
+                    description: 画像のURL
+                required:
+                  - name
+                  - url
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 画像をストレージにアップロードする
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: ファイル名
+                attachment:
+                  type: string
+                  description: ファイルデータを Base64 エンコードした文字列
+                type:
+                  type: string
+                  description: Content-Type
+              required:
+                - key
+                - attachment
+                - type
+            examples: {}
+      security:
+        - api_key: []
+      tags:
+        - images
+  /sites/meta:
+    get:
+      summary: Get site metadata
+      tags:
+        - sites
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Webサイトのタイトル
+                required:
+                  - title
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-sites-meta
+      description: Web サイトのメタデータを取得する
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: url
+          required: true
+          description: WebサイトのURL
+      security:
+        - api_key: []
+    parameters: []
+  /notes:
+    get:
+      summary: Get a list of Notes
+      tags:
+        - notes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-notes
+      description: ノートの一覧を取得する
+      deprecated: true
+      security:
+        - api_key: []
+      requestBody:
+        $ref: '#/components/requestBodies/note'
+    post:
+      summary: Create Note
+      operationId: post-notes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: ノートを登録する
+      security:
+        - api_key: []
+      tags:
+        - notes
+      deprecated: true
+      requestBody:
+        $ref: '#/components/requestBodies/note'
+  '/notes/{noteId}':
+    parameters:
+      - schema:
+          type: string
+        name: noteId
+        in: path
+        required: true
+    get:
+      summary: Get Note
+      tags:
+        - notes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-notes-noteId
+      description: 指定のノートを取得する
+      deprecated: true
+      security:
+        - api_key: []
+    put:
+      summary: Update Note
+      operationId: put-notes-noteId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 指定のノートを更新する
+      deprecated: true
+      security:
+        - api_key: []
+      tags:
+        - notes
+      requestBody:
+        $ref: '#/components/requestBodies/note'
+    delete:
+      summary: Delete Note
+      operationId: delete-notes-noteId
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - notes
+      description: 指定のノートを削除する
+      deprecated: true
+      security:
+        - api_key: []
+components:
+  schemas:
+    Note:
+      title: Note
+      type: object
+      properties:
+        id:
+          type: string
+          description: ノートID
+        content:
+          type: string
+          description: ノートのテキスト
+      required:
+        - id
+        - content
+    Error:
+      title: Error
+      type: object
+      properties:
+        error:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              description: エラーメッセージ
+      required:
+        - error
+  securitySchemes:
+    api_key:
+      name: api_key
+      type: apiKey
+      in: query
+  requestBodies:
+    note:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: ノートのテキスト
+            required:
+              - content
+        application/xml:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: ノートのテキスト
+            required:
+              - content
+      description: ノートの登録・更新
+  responses: {}
+security:
+  - API Key: []
