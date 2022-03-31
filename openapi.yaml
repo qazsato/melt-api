@@ -388,15 +388,6 @@ components:
                 description: ノートのテキスト
             required:
               - content
-        application/xml:
-          schema:
-            type: object
-            properties:
-              content:
-                type: string
-                description: ノートのテキスト
-            required:
-              - content
       description: ノートの登録・更新
   responses: {}
 security:
