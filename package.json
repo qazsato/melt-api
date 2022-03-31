@@ -1,6 +1,5 @@
 {
   "name": "melt-api",
-  "version": "2.0.2",
   "scripts": {
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
