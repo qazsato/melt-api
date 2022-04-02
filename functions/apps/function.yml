@@ -1,0 +1,7 @@
+handler: ${self:custom.environment.${self:provider.stage}.handler.apps}
+description: Meltのメタデータを取得する
+events:
+  - http:
+      path: apps/meta
+      method: get
+      cors: true

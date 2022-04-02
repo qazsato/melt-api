@@ -44,7 +44,6 @@ paths:
       description: Melt のメタデータを取得する
       security:
         - api_key: []
-      deprecated: true
   /images:
     post:
       summary: Upload image

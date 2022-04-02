@@ -1,6 +1,7 @@
 stage: prod
 domain: api.melt.qazsato.com
 handler:
+  apps: bin/apps
   sites: bin/sites
   images: bin/images
 aws:
