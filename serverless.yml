@@ -45,5 +45,6 @@ package:
     - ./bin/**
 
 functions:
+  apps: ${file(./functions/apps/function.yml)}
   sites: ${file(./functions/sites/function.yml)}
   images: ${file(./functions/images/function.yml)}

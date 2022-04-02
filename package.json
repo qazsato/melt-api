@@ -4,7 +4,8 @@
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
     "deploy:prod": "sls deploy --stage prod",
-    "docs": "redoc-cli bundle openapi.yaml -o docs/index.html"
+    "docs:bundle": "redoc-cli bundle openapi.yaml -o docs/index.html",
+    "docs:serve": "redoc-cli serve openapi.yaml --watch"
   },
   "devDependencies": {
     "redoc-cli": "0.13.9",

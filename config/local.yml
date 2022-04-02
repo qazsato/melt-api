@@ -1,6 +1,7 @@
 stage: local
 domain: localhost:3000
 handler:
+  apps: functions/apps/main.go
   sites: functions/sites/main.go
   images: functions/images/main.go
 aws:
