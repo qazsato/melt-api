@@ -3,23 +3,26 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
-	"regexp"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/qazsato/melt-api/utils"
 )
 
-func GetTitle(html string) string {
-	r1 := regexp.MustCompile("<title>(.+)<\\/title>")
-	result := r1.FindString(html)
-	r2 := regexp.MustCompile("<title>")
-	result = r2.ReplaceAllString(result, "")
-	r3 := regexp.MustCompile("<\\/title>")
-	result = r3.ReplaceAllString(result, "")
-	return result
+func GetTitle(body io.ReadCloser) (string, error) {
+	doc, err := goquery.NewDocumentFromReader(body)
+	if err != nil {
+		return "", err
+	}
+
+	title := ""
+	doc.Find("head title").Each(func(i int, s *goquery.Selection) {
+		title = s.Text()
+	})
+	return title, nil
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
@@ -47,13 +50,13 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	}
 
 	defer httpRes.Body.Close()
-	byteArray, err := ioutil.ReadAll(httpRes.Body)
+	title, err := GetTitle(httpRes.Body)
 	if err != nil {
 		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
 
 	body := map[string]string{
-		"title": GetTitle(string(byteArray)),
+		"title": title,
 	}
 	bytes, err := json.Marshal(body)
 	if err != nil {
