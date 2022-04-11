@@ -92,8 +92,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 
 	url := "https://s3-ap-northeast-1.amazonaws.com/" + bucket + "/" + key
 	body := map[string]string{
-		"name": image.Key,
-		"url":  url,
+		"url": url,
 	}
 	bytes, err := json.Marshal(body)
 	if err != nil {

@@ -1,11 +1,12 @@
 openapi: 3.1.0
 info:
   title: Melt API
-  version: 2.2.0
-  description: マークダウンエディタ Melt で利用する REST API
+  version: 2.2.2
+  description: 'マークダウンエディタ [Melt](https://github.com/qazsato/melt) で利用する REST API'
   x-logo:
     url: 'https://qazsato.github.io/melt-api/logo.png'
-  contact: {}
+  contact:
+    url: 'https://github.com/qazsato/melt-api'
 servers:
   - description: ''
     url: 'https://api.melt.qazsato.com'
@@ -56,14 +57,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  name:
-                    type: string
-                    description: ファイル名
                   url:
                     type: string
                     description: 画像のURL
                 required:
-                  - name
                   - url
         '400':
           description: Bad Request
