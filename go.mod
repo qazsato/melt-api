@@ -5,6 +5,8 @@ go 1.18
 require github.com/aws/aws-lambda-go v1.28.0
 
 require (
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
+	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/aws/aws-sdk-go v1.43.27 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.16.1 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.1 // indirect
@@ -48,6 +50,7 @@ require (
 	github.com/tidwall/pretty v1.2.0 // indirect
 	go.starlark.net v0.0.0-20220328144851-d1966c6b9fcd // indirect
 	golang.org/x/arch v0.0.0-20220401014709-5424468ecbac // indirect
+	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20220403020550-483a9cbc67c0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
