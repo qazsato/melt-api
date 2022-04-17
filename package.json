@@ -4,7 +4,7 @@
     "offline": "sls offline --stage local",
     "deploy:dev": "sls deploy --stage dev",
     "deploy:prod": "sls deploy --stage prod",
-    "docs:bundle": "redoc-cli bundle openapi.yaml -o docs/index.html",
+    "docs:bundle": "redoc-cli bundle openapi.yaml -t docs/custom.hbs -o docs/index.html --options.theme.colors.primary.main=#00b1b3",
     "docs:serve": "redoc-cli serve openapi.yaml --watch"
   },
   "devDependencies": {
