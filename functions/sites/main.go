@@ -4,25 +4,51 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/djimenez/iconv-go"
 	"github.com/qazsato/melt-api/utils"
+	"github.com/saintfish/chardet"
 )
 
 func GetTitle(body io.ReadCloser) (string, error) {
-	doc, err := goquery.NewDocumentFromReader(body)
+	bytes, err := ioutil.ReadAll(body)
 	if err != nil {
 		return "", err
 	}
 
+	// 文字コードの判定
+	// cf. https://qiita.com/koki_develop/items/dab4bcbb1df1271a17b6
+	detector := chardet.NewTextDetector()
+	detectorResult, err := detector.DetectBest(bytes)
+	if err != nil {
+		return "", err
+	}
+
+	// title タグのテキスト取得
+	reader := strings.NewReader(string(bytes))
+	doc, err := goquery.NewDocumentFromReader(reader)
+	if err != nil {
+		return "", err
+	}
 	title := ""
 	doc.Find("head title").Each(func(i int, s *goquery.Selection) {
 		title = s.Text()
 	})
-	return title, nil
+
+	// 文字コードをUTF-8に変換
+	// cf. https://github.com/djimenez/iconv-go#converting-string-values
+	convertedTitle, err := iconv.ConvertString(title, detectorResult.Charset, "utf-8")
+	if err != nil {
+		return "", err
+	}
+
+	return convertedTitle, nil
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {

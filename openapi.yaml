@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Melt API
-  version: 2.2.2
+  version: 2.2.4
   description: 'マークダウンエディタ [Melt](https://github.com/qazsato/melt) で利用する REST API'
   x-logo:
     url: 'https://qazsato.github.io/melt-api/logo.png'
