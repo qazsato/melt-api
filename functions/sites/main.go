@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/aws/aws-lambda-go/events"
@@ -70,7 +71,10 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 		return utils.GetErrorResponse(400, "url is required", nil), nil
 	}
 
-	httpRes, err := http.Get(url)
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+	httpRes, err := client.Get(url)
 	if err != nil {
 		return utils.GetErrorResponse(500, "Internal Server Error", err), nil
 	}
