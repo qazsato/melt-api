@@ -2,7 +2,6 @@
 
 init:
 	npm install
-	@make build
 
 serve:
 	npm run offline
