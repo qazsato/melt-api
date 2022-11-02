@@ -8,10 +8,10 @@
     "docs:serve": "redoc-cli serve openapi.yaml --watch"
   },
   "devDependencies": {
-    "redoc-cli": "0.13.9",
-    "serverless": "3.8.0",
-    "serverless-domain-manager": "6.0.2",
-    "serverless-offline": "8.5.0",
+    "redoc-cli": "0.13.20",
+    "serverless": "3.23.0",
+    "serverless-domain-manager": "6.2.0",
+    "serverless-offline": "11.2.3",
     "serverless-s3-local": "0.6.22"
   },
   "author": "qazsato",
