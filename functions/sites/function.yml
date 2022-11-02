@@ -1,7 +1,7 @@
 handler: ${self:custom.environment.${self:provider.stage}.handler.sites}
 description: Webサイトのメタデータを取得する
 events:
-  - http:
+  - httpApi:
       path: sites/meta
       method: get
       cors: true

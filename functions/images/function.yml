@@ -1,7 +1,7 @@
 handler: ${self:custom.environment.${self:provider.stage}.handler.images}
 description: 画像をアップロードする
 events:
-  - http:
+  - httpApi:
       path: images
       method: post
       cors: true
