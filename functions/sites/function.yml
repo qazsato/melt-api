@@ -4,4 +4,3 @@ events:
   - httpApi:
       path: sites/meta
       method: get
-      cors: true

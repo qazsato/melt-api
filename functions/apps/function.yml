@@ -4,4 +4,3 @@ events:
   - httpApi:
       path: apps/meta
       method: get
-      cors: true
