@@ -8,7 +8,6 @@ provider:
   logRetentionInDays: 30
   timeout: 20
   versionFunctions: false
-  lambdaHashingVersion: 20201221
   environment:
     KEY_TABLE_NAME: ${self:custom.environment.${self:provider.stage}.aws.dynamodb.api_keys.table_name}
   iamRoleStatements:
