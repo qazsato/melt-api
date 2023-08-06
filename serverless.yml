@@ -11,6 +11,7 @@ provider:
   timeout: 20
   versionFunctions: false
   environment:
+    TZ: Asia/Tokyo
     KEY_TABLE_NAME: ${self:custom.environment.${self:provider.stage}.aws.dynamodb.api_keys.table_name}
   iamRoleStatements:
     - Effect: Allow
