@@ -19,10 +19,8 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go
 ├── functions # Lambda関数
 │   ├── images
 │   │   ├── function.yml # serverless.ymlの分割ファイル
-│   │   └── main.go # Lambda関数の実行ファイル
+│   │   └── handler.ts # Lambda関数の実行ファイル
 │   └── ...
-├── go.mod
-├── Makefile
 ├── package.json
 └── serverless.yml
 ```
@@ -30,10 +28,11 @@ API Gateway + Lambda (Serverless Framework) の構成で、ランタイムは Go
 ## セットアップ
 
 ```
-make init
+npm install
 ```
 
 ローカル起動
+
 ```
-make serve
+npm run dev
 ```
