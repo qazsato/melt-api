@@ -1,18 +1,43 @@
 {
   "name": "melt-api",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "offline": "sls offline --stage local",
-    "deploy:dev": "sls deploy --stage dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "dev": "sls offline --reloadHandler",
+    "debug": "export SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless.js offline",
     "deploy:prod": "sls deploy --stage prod",
     "docs:bundle": "redoc-cli bundle openapi.yaml -t docs/custom.hbs -o docs/index.html --options.theme.colors.primary.main=#00b1b3",
     "docs:serve": "redoc-cli serve openapi.yaml --watch"
   },
   "devDependencies": {
-    "redoc-cli": "0.13.20",
-    "serverless": "3.23.0",
-    "serverless-domain-manager": "6.2.0",
-    "serverless-offline": "11.2.3",
-    "serverless-s3-local": "0.6.22"
+    "@typescript-eslint/eslint-plugin": "6.12.0",
+    "@typescript-eslint/parser": "6.12.0",
+    "esbuild": "0.19.7",
+    "eslint": "8.54.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-prettier": "5.0.1",
+    "prettier": "3.1.0",
+    "redoc-cli": "0.13.21",
+    "serverless": "3.38.0",
+    "serverless-domain-manager": "7.2.0",
+    "serverless-esbuild": "1.49.0",
+    "serverless-offline": "13.3.0",
+    "serverless-s3-local": "0.8.1"
+  },
+  "dependencies": {
+    "@middy/core": "4.4.0",
+    "@middy/http-error-handler": "4.4.0",
+    "@middy/http-json-body-parser": "4.4.0",
+    "aws-sdk": "2.1502.0",
+    "axios": "1.6.2",
+    "chardet": "2.0.0",
+    "dayjs": "1.11.10",
+    "http-errors": "2.0.0",
+    "iconv-lite": "0.6.3"
   },
   "author": "qazsato",
   "license": "MIT"

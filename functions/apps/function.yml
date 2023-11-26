@@ -1,4 +1,4 @@
-handler: ${self:custom.environment.${self:provider.stage}.handler.apps}
+handler: functions/apps/handler.main
 description: Meltのメタデータを取得する
 events:
   - httpApi:
