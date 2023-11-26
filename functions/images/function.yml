@@ -1,4 +1,4 @@
-handler: ${self:custom.environment.${self:provider.stage}.handler.images}
+handler: functions/images/handler.main
 description: 画像をアップロードする
 events:
   - httpApi:

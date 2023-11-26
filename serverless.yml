@@ -1,14 +1,16 @@
 service: melt-api
 
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: go1.x
-  stage: ${opt:stage, self:custom.defaultStage}
   region: ap-northeast-1
-  logRetentionInDays: 30
+  stage: ${opt:stage, self:custom.defaultStage}
+  runtime: nodejs20.x
+  architecture: arm64
+  memorySize: 1024
   timeout: 20
+  logRetentionInDays: 30
   versionFunctions: false
   environment:
     TZ: Asia/Tokyo
@@ -17,16 +19,17 @@ provider:
     - Effect: Allow
       Action:
         - s3:*
-      Resource: "arn:aws:s3:::melt-storage/*"
-    - Effect: "Allow"
+      Resource: 'arn:aws:s3:::melt-storage/*'
+    - Effect: 'Allow'
       Action:
         - dynamodb:GetItem
-      Resource: "arn:aws:dynamodb:ap-northeast-1:*:*"
+      Resource: 'arn:aws:dynamodb:ap-northeast-1:*:*'
   httpApi:
     cors: true
 
 plugins:
   - serverless-domain-manager
+  - serverless-esbuild
   - serverless-s3-local
   - serverless-offline
 
@@ -36,19 +39,15 @@ custom:
     local: ${file(./config/local.yml)}
     dev: ${file(./config/development.yml)}
     prod: ${file(./config/production.yml)}
+  esbuild:
+    sourcemap: true
   customDomain:
     domainName: ${self:custom.environment.${self:provider.stage}.domain}
-    basePath: ""
+    basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
     endpointType: regional
     apiType: http
-
-package:
-  exclude:
-    - ./**
-  include:
-    - ./bin/**
 
 functions:
   apps: ${file(./functions/apps/function.yml)}
