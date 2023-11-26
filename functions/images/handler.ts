@@ -4,7 +4,7 @@ import * as AWS from 'aws-sdk'
 const s3 = new AWS.S3()
 
 const lambdaHandler = async (event) => {
-  const body = JSON.parse(event.body)
+  const body = event.body
   const hash = createHash('md5').update(body.attachment)
   // 先頭の ~;base64, まではファイルデータとして不要なので空文字で置換する
   const fileData = body.attachment.replace(/^data:\w+\/\w+;base64,/, '')
