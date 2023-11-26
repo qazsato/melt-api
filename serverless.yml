@@ -40,12 +40,13 @@ custom:
     dev: ${file(./config/development.yml)}
     prod: ${file(./config/production.yml)}
   esbuild:
-    sourcemap: true
+    bundle: true
+    minify: true
+    exclude: []
+
   customDomain:
     domainName: ${self:custom.environment.${self:provider.stage}.domain}
-    basePath: ''
-    stage: ${self:provider.stage}
-    createRoute53Record: true
+    autoDomain: true
     endpointType: regional
     apiType: http
 

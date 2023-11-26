@@ -1,7 +1,7 @@
 import { middyfy } from '~/core/middyfy'
 import axios from 'axios'
-import chardet from 'chardet'
-import iconv from 'iconv-lite'
+import * as chardet from 'chardet'
+import * as iconv from 'iconv-lite'
 
 const lambdaHandler = async (event) => {
   const url = decodeURIComponent(event.queryStringParameters.url)

@@ -1,6 +1,6 @@
 import { middyfy } from '~/core/middyfy'
 import { createHash } from 'node:crypto'
-import AWS from 'aws-sdk'
+import * as AWS from 'aws-sdk'
 const s3 = new AWS.S3()
 
 const lambdaHandler = async (event) => {
