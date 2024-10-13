@@ -2,6 +2,9 @@ service: melt-api
 
 frameworkVersion: '3'
 
+package:
+  individually: true
+
 provider:
   name: aws
   region: ap-northeast-1
